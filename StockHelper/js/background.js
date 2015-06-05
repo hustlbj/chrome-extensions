@@ -11,7 +11,7 @@ var firstAnimate = true;
 // 初始化动画
 function initAnimate()
 {
-	iconSrc = "images/icon_19.png";
+	iconSrc = "icon.png";
 	
 	canvas = document.getElementById("canvas");
 	canvasContext = canvas.getContext("2d");

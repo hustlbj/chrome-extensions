@@ -123,8 +123,9 @@ function updateStocks() {
 		return;
 	}
 	try {
+		
 		var xhr = new window.XMLHttpRequest();
-					
+		
 		xhr.open("GET", stockGetUrl, false);
 		xhr.onreadystatechange = function() {
 			var stockInfo = undefined;

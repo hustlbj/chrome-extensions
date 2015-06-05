@@ -3,11 +3,11 @@
 	"name": "StockHelper",
 	"version": "0.1",
 	"description": "Display the stocks's real-time market information which you interested in",
-	"icons": {
-		"16": "icon_16.png",
-		"32": "icon_32.png",
-		"128": "icon_128.png"
-	},
+	"permissions": [  
+		"http://*/",    
+		"http://*.google.com/",    
+		"unlimitedStorage"
+	],
 	"browser_action": {
 		"default_icon": "icon.png",
 		"default_title": "Market index",
@@ -15,13 +15,5 @@
 	},
 	"background": {
 		"page": "background.html"
-	},
-	"permission": {
-		"tabs",   
-		"bookmarks",    
-		"http://www.blogger.com/",    
-		"http://*.google.com/",    
-		"unlimitedStorage",
-		"background"
 	}
 }
