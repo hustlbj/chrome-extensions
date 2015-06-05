@@ -1,0 +1,215 @@
+body {
+	font-family: Tahoma;
+	font-size: 12px;
+	margin: 2px;
+	padding: 0px;
+}
+
+div#title {
+	border-bottom: dashed 1px gray;
+	float: left;
+	height: 36px;
+	margin: 5px;
+	width: 380px;
+}
+
+u {
+	cursor: pointer;
+}
+
+@font-face {
+  font-family: "handy";
+  src: url("../font/handy00.ttf") format("truetype");
+}
+
+div#stockDisplay {
+	height: 320px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+	width: 380px;
+}
+
+div#stockPage {
+	height: 314px;
+	margin: 0;
+	overflow: hidden;
+	position: relative;
+	width: 380px;
+}
+
+.stockContainer {
+	float: left;
+	margin: 0 auto;
+	margin: 5px auto;
+	width: 380px;
+}
+
+.pictureContainer {
+	float: left;
+	height: 208px;
+	line-height: 208px;
+	margin: 16px 0 16px 0;
+	text-align: center;
+	width: 380px;
+}
+
+.pictureContainer img {
+	height: 100%;
+	width: 100%;
+}
+
+.stockInfoContainer {
+	border-bottom: 1px solid #eee;
+	float: left;
+	height: 80px;
+	margin-left: 8px;
+	margin-right: 8px;
+	width: 380px;
+}
+
+.stockPriceContainer {
+	border-right: 1px solid #eee;
+	float: left;
+	margin-left: -9px;
+	height: 74px;
+	text-align: center;
+	width: 158px;
+}
+
+.stockPrice {
+	font-family: 'Arial', Tahoma;
+	font-size: 44px;
+	font-weight: bold;
+	line-height: 44px;
+	width: 158px;
+    text-shadow: 1px 1px 0px #eee;
+}
+
+.overMaxPrice {
+    font-size: 38px;
+}
+
+.stockTime {
+	color: gray;
+	float: left;
+	font-family: Simsun, Tahoma;
+	font-size: 12px;
+	height: 15px;
+	line-height: 15px;
+	text-align: center;
+	width: 158px;
+}
+
+.stockChange {
+	color: gray;
+	float: left;
+	font-family: Simsun, Tahoma;
+	font-size: 12px;
+	text-align: center;
+	width: 158px;
+}
+
+.maxPrice, .minPrice, .openPrice, .closePrice, .volume, .turnover {
+	float: left;
+	font-family: Simsun, Tahoma;
+	height: 18px;
+	line-height: 18px;
+	padding-left: 8px;
+	text-align: left;
+	width: 97px;
+}
+
+.stockName {
+	float: left;
+	font-family: Simsun, Tahoma;
+	font-weight: bold;
+	height: 25px;
+	line-height: 25px;
+	padding-left: 8px;
+	text-align: left;
+	width: 200px;
+}
+
+ol#controls {
+	border-top: dashed 1px gray;
+	float: left;
+	margin: 0px auto;
+	padding: 5px 0 0 0;
+	width: 380px;
+}
+
+ol#controls li {
+	float: left;
+	list-style: none;
+	padding-bottom: 3px;
+	padding-left: 0px;
+	padding-right: 3px;
+	padding-top: 2px;
+}
+
+ol#controls li a {
+	border: 0;
+	float: left;
+	padding: 0;
+	text-align: center;
+	text-decoration: none;
+}
+
+ol#controls li a .stockPageName {
+	padding: 1px 5px 0px 5px;
+	font-family: menu;
+	color: #fff;
+	font-size: 12px;
+	background: #111;
+	-webkit-border-top-left-radius: 2px;
+	-webkit-border-top-right-radius: 2px;
+}
+ol#controls li a .stockPageInfo {
+	padding: 0;
+	text-align: center;
+	color: #555;
+	font-size: 8px;
+	background: #fff;
+	-webkit-border-bottom-left-radius: 2px;
+	-webkit-border-bottom-right-radius: 2px;
+	width: 58px;
+	max-width: 58px;
+	overflow: hidden;
+}
+
+ol#controls li a .stockPageInfo div {
+	padding: 0;
+	margin: 0 0 0 -11px;
+	width: 80px;
+	font-family: "handy", Simsun, Tahoma;
+	font-size: 12px;
+	-webkit-transform: scale(0.7);
+	line-height: 10px;
+	white-space:nowrap;
+}
+
+@--webkit-keyframes pulse {
+	from {opacity: 0.6; }
+	to { opacity: 1.0; }
+
+}
+
+div.StockAlert {
+	-webkit-animation-direction: alternate;
+	-webkit-animation-duration: 500ms;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: pulse;
+}
+
+ol#controls li a.StockAlert .stockPageName {
+	-webkit-border-top-left-radius: 8px;
+}
+
+ol#controls li a.StockAlert .stockPageInfo {
+	-webkit-border-bottom-right-radius: 8px;
+}
+
+ol#controls li a:focus, #prevBtn a:focus, #nextBtn a:focus {
+	outline: none;
+}

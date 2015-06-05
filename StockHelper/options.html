@@ -1,0 +1,109 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>股票提醒助手 选项</title>
+	<link  href="styles/options.css"  rel="stylesheet"  type="text/css">
+	<link  href="styles/jquery.autocomplete.css"  rel="stylesheet"  type="text/css"> 
+	<script  type="text/javascript"  src="js/libs/jquery-1.7.min.js"></script>
+	<script  type="text/javascript"  src="js/libs/jquery.autocomplete.min.js"></script>
+	<script  type="text/javascript"  src="js/libs/autoresize.js"></script>
+	<script  type="text/javascript"  src="js/libs/settings.js"></script>
+    <script  type="text/javascript"  src="js/libs/jquery.tablednd_0_5.js"></script>
+	<script  type="text/javascript"  src="js/stockInfo.js"></script>
+	<script  type="text/javascript"  src="js/stock.js"></script>
+    <script  type="text/javascript"  src="js/options.js"></script>
+</head>
+<body>
+    <div  id="message"  class="message">保存成功</div>
+    <div  id="tabMenu">
+		<h3>股票提醒助手</h3>
+		<ul  class="menu">
+			<li  class="tabActive"><a  href="options.html?#custom-stock-infos">自选股</a></li>
+            <li><a  href="options.html?#basic-options">提醒设置</a></li>
+			<li><a  href="options.html?#backup">数据备份</a></li>
+		</ul>
+		<div  class="separator"></div>
+		<div  id="footer">
+			版本 3.7.6<br>
+		</div>
+	</div>
+    <div  id="options">
+        <div  id="custom-stock-infos"  style="display: block;">
+		    <h4>自选股信息</h4>
+            <table  id="stocksTable"  class="stocksTable">
+    			<tbody>
+                <tr>
+                    <th  width="14px"></th>
+                    <th  width="26px">标记</th>
+    				<th  width="75px">股票名称</th>
+    				<th  width="75px">股票代码</th>
+    				<th  width="66px">涨跌幅</th>
+    				<th  width="63px">当前价</th>
+    				<th  width="50px">涨跌价</th>
+    				<th  width="63px">今开价</th>
+    				<th  width="63px">昨收价</th>
+    				<th  width="63px">最高价</th>
+    				<th  width="63px">最低价</th>
+    				<th  width="63px">上破价</th>
+    				<th  width="63px">下破价</th>
+    				<th  width="56px">操作</th>
+    			</tr>
+    			<tr  class="templateRow">
+                    <td  class="dragHandle"  title="拖动"> </td>
+                   	<td><div  class="flag"  title="标记股票"></div></td>
+    				<td><div  style="cursor: pointer; position: relative;"  title="点击修改"><span  class="stockName"></span><input  id="stockName"  type="text"></div></td>
+    				<td><div><span  class="stockCode"  style="cursor: pointer;"  title="点击进入新浪财经行"></span></div></td>
+    				<td><div><span  class="stockChangeRate"></span></div></td>
+    				<td><div><span  class="stockPrice"></span></div></td>
+    				<td><div><span  class="stockChangeAmt"></span></div></td>
+    				<td><div><span  class="stockOpenPrice"></span></div></td>
+    				<td><div><span  class="stockClosePrice"></span></div></td>
+    				<td><div><span  class="stockMaxPrice"></span></div></td>
+    				<td><div><span  class="stockMinPrice"></span></div></td>
+    				<td><div  style="cursor: pointer;"  title="点击修改"><span  class="stockUpPrice">0.00</span><input  id="stockUpPrice"  type="text"  value="0.00"></div></td>
+    				<td><div  style="cursor: pointer;"  title="点击修改"><span  class="stockDownPrice">0.00</span><input  id="stockDownPrice"  type="text"  value="0.00"></div></td>
+    				<td>
+    					<div  class="note"  title="备注"><br></div>
+    					<div  class="delete"  title="删除股票"><br></div>
+    				</td>
+    			</tr>
+    		
+    			</tbody></table>
+    		<div  id="custom-stock-control"  class="custom-stock-control">
+    			<button  id="btnNewStock">新股票</button>
+    			<button  id="btnLoadStock">&nbsp;刷新&nbsp;</button>
+    			<label>注：如果输入的股票不能自动提示，直接填股票代码，如:sh600111, sz002001</label>
+                <button  id="btnSaveStock"  style="float:right">&nbsp;保存自选股信息&nbsp;</button>
+    		</div>
+            <div  id="div-stock-note"  class="stockNote"  style="display: none;">
+    			<div  id="noteTitle"  class="stockNoteTitle"  tag="">股票备注:</div>
+                <textarea  wrap="soft"  class="note-textarea"  style="overflow-y: hidden; position: absolute; top: 0px; left: -9999px; height: 88px; width: 100px; line-height: 18px; text-decoration: none; letter-spacing: normal;"  tabindex="-1"></textarea><textarea  id="txtStockNote"  wrap="soft"  class="note-textarea"  style="overflow-y: hidden;"></textarea>
+    		</div>
+            <div  id="stock-note-control"  class="stock-note-control"  style="display: none;">
+				<button  id="btnBackOptions">返回自选股</button>
+				<button  id="btnSaveNote"  style="float:right">保存备注</button>
+    		</div>
+        </div>
+        <div  id="basic-options"  style="display: none;">
+		    <h4>提醒设置</h4>
+            <div  class="alertRow"><input  type="checkbox"  id="displayAlertInput"  name="displayAlert"  checked="checked"> 显示提示信息窗口，当达到预警设置时？</div>
+			<div  class="alertRow"><input  type="checkbox"  id="soundAlertInput"  name="soundAlert"  checked="checked"> 播放提示音，当达到预警设置时？</div>
+			<div  class="alertRow"><input  type="checkbox"  id="animateAlertInput"  name="animateAlert"> 图标动态变化，当达到预警设置时？</div>
+			<div  class="alertRow"><input  type="checkbox"  id="showPriceInput"  name="showPrice"  checked="checked"> 实时显示股票价格？</div>
+			<div  class="alertRow"><input  type="checkbox"  id="showStockPicture"  name="showPicture"  checked="checked"> 弹出窗口中，是否显示股票图片？</div>
+			<div  class="alertRow"><input  type="checkbox"  id="showSinaLinkInput"  name="showSinaLink"> 弹出窗口中，使用新浪财经快捷链接？</div>
+        </div>
+        <div  id="backup"  style="display: none;">
+			<h4>数据备份</h4>
+            <textarea  id="txtBackup"  wrap="soft"  class="backup-textarea"></textarea>
+            <div  class="backup-control">
+    			<button  id="btnExportStock">导出自选股</button>
+    			<button  id="btnImportStock">导入自选股</button>
+            </div>
+            <div  id="backupMessage"  class="backup-message">
+                注：<br>
+                &nbsp;&nbsp;1、<b>备份方法</b>：点击导出自选股，将文本框内的数据进行保存，以备下次导入。<br>
+                &nbsp;&nbsp;2、<b>恢复方法</b>：将上次导入后保存的内容填入文本框内，点击导入自选股按钮。
+            </div>
+		</div>
+
+</div></body></html>
