@@ -89,7 +89,7 @@ var isWebkitNotify = false;
 /* 初始化 */
 function init() {
 	/* 初始化标题 */
-	chrome.browserAction.setTitle({title: "股票提醒助手 3.7.6"});
+	chrome.browserAction.setTitle({title: "股票提醒助手 学习版"});
 	
 	isWebkitNotify = isWebkitHTMLNotificationsEnabled();
 	

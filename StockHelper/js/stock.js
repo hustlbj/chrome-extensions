@@ -1,6 +1,7 @@
 var stockGetInfos = undefined;
 var stockGetUrl = undefined;
 
+/*判断是否是股票交易时间段*/
 function isOperation() {
 	var today = new Date();
 	
@@ -23,19 +24,20 @@ function isWebkitHTMLNotificationsEnabled() {
 	return window.webkitNotifications && window.webkitNotifications.createHTMLNotification;
 }
 
+//打开该股票在新浪财经的页面
 function openStockPage(stockCode) {
 	console.log('ffff');
 	chrome.tabs.create({url: "http://finance.sina.com.cn/realstock/company/" + stockCode + "/nc.shtml", selected: false});
 }
-
+//打开新浪财经股票首页
 function openSinaStock() {
 	chrome.tabs.create({url: "http://finance.sina.com.cn/stock/index.shtml"});
 }
-
+/*股票的价格走势图 http://image.sinajs.cn/newchar/min/n/sh000001.gif?random()*/
 function getImageSrc(stockCode) {
 	return "http://image.sinajs.cn/newchart/min/n/" + stockCode + ".gif?" + Math.random();
 }
-
+/*股票的日K线图和成交量图 http://image.sinajs.cn/newchart/daily/n/sh000001.gif?random()*/
 function getImageSrc2(stockCode) {
 	return "http://image.sinajs.cn/newchart/daily/n/" + stockCode + ".gif?" + Math.random();
 }
