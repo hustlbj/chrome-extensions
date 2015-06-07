@@ -63,6 +63,7 @@ function createStockDisplayDOM() {
 	stockGetInfos = backgroundPage.stockGetInfos;
 	currentPosition = backgroundPage.Settings.getValue("popupStockPosition", 0);
 	
+	//如果没有自选股票，则跳转到options.html页面进行设置
 	if (!stockGetInfos || stockGetInfos.length == 0)
 	{
 		chrome.tabs.create({url: "options.html"});

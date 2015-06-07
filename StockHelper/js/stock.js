@@ -41,7 +41,7 @@ function getImageSrc(stockCode) {
 function getImageSrc2(stockCode) {
 	return "http://image.sinajs.cn/newchart/daily/n/" + stockCode + ".gif?" + Math.random();
 }
-
+//从Settings中获取添加的股票列表
 function loadStocks() {
 	var stocks = Settings.getObject("stockListStocks");
 	
@@ -178,7 +178,14 @@ function updateStocks() {
 function getStockInfo(stockCode, f){
 	try {
 		var xhr = new window.XMLHttpRequest();
-					
+		//股票返回格式var hq_str_sh000001=
+		// 股票名称,今开,    昨收,    今收,    最高,    最低    , , ,成交量,   成交额,         ,                                       ,更新时间
+		//"上证指数,5016.088,4947.102,5023.096,5051.626,4898.068,0,0,772240812,1232300667129.60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2015-06-05,15:05:05,00";
+		//  3      , 4      ,      5 ，   6   ,    7   ,    8   , , , 11，    ,    12          ,   
+		//基金返回格式var hq_str_of110028=
+		// 基金名称           ,最新,累计 ,上次 ,涨幅, 时间
+		//"易方达安心回报债券B,1.86,2.365,1.858,0.11,2015-06-05";
+		//   3                , 4  ,  5  , 6   ,  7 ,    8
 		xhr.open("GET", "http://hq.sinajs.cn/list=" + stockCode, true);
 		xhr.onreadystatechange = function() {
 			var stockInfo = undefined;
@@ -186,7 +193,7 @@ function getStockInfo(stockCode, f){
 		
 			if (xhr.readyState == 4) {
 				var elements = xhr.responseText.split(/_|="|,|"/);
-
+				alert(elements);
 				if(elements.length > 5) {
 					try {
 						stockInfo = {

@@ -81,6 +81,7 @@ function eraseMessage() {
 }
 
 function init() {
+	//初始化侧边标签
 	initializeTabs();
 	
 	$("#div-stock-note").hide();
@@ -162,18 +163,23 @@ function init() {
 	window.setTimeout(updateStockPriceLoop, 5000);
 }
 function initializeTabs() {
+	//默认显示custom-stock-infos标签信息，添加删除自选stocks信息
 	$("ul.menu li:first").addClass("tabActive").show(); 
 	$("#options > div").hide();
 	$("#custom-stock-infos").show();
 	
+	//ul菜单中点击某个标签时
 	$("ul.menu li").click(function() {
 
 		$("ul.menu li").removeClass("tabActive"); 
+		//ul中被点击的li添加active的css样式
 		$(this).addClass("tabActive");
+
+		//先把options中的div都隐藏
 		$("#options > div").hide();
-		
+		//
 		var activeTab = $(this).find("a").attr("href");
-		$(activeTab).fadeIn();
+		$(activeTab).show();
 		return false;
 	});
 }
@@ -232,7 +238,7 @@ function setAutoComplete(input, row) {
 		}
 	); 
 }
-
+//进入编辑模式
 function enterFieldEditMode(cell) {
 	var input = $("input", cell);
 	var span = $("span", cell);
@@ -246,6 +252,7 @@ function enterFieldEditMode(cell) {
 	input.focus();
 	
 	if (input.attr("id") == "stockName")
+		//自动补全
 		setAutoComplete(input, span.parent().parent().parent());
 }
 
@@ -273,6 +280,7 @@ function exitFieldEditMode(cell) {
 	}
 }
 
+//添加新股票，从新浪财经获取该股票基本数据
 function updateStockInfo(row) {
 	if ($(".stockCode", row).text() == "")
 		return;
@@ -281,6 +289,7 @@ function updateStockInfo(row) {
 		return;
 	
 	$(".stockPrice", row).html("<img alt=\"获取价格中\" src=\"images/loading.gif\" height=\"13px\">");
+	//getStockInfo将数据保存在stockInfo中，并且调用传入的函数
 	getStockInfo($(".stockCode", row).text(), function(stockInfo, stockName) {
 		if (stockInfo == undefined) {
 			if ( $(".stockName", row).text() == "" ) {
