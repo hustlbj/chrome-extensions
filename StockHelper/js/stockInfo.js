@@ -3109,6 +3109,8 @@ var stockInfos = [
 	{ pyname: "ydl", name: "溢多利", code: "sz300381" },
 	{ pyname: "slk", name: "斯莱克", code: "sz300382" },
 	{ pyname: "ghxw", name: "光环新网", code: "sz300383" },
-	{ pyname: "js500", name: "景顺500", code: "sz500159" }
+	{ pyname: "js500", name: "景顺500", code: "sz500159" },
+	{ pyname: "cyb", name: "创业板指", code: "sz399006"},
+	{ pyname: "yfdax", name: "易方达安心回报债券B", code: "110028"}
 ];
 

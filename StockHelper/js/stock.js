@@ -41,6 +41,14 @@ function getImageSrc(stockCode) {
 function getImageSrc2(stockCode) {
 	return "http://image.sinajs.cn/newchart/daily/n/" + stockCode + ".gif?" + Math.random();
 }
+
+//基金净值日线图
+//http://image.sinajs.cn/newchart/v5/fund/nav/b/" + '110028' + ".gif?rn=" + new Date().getTime()
+//http://image.sinajs.cn/newchart/v5/fund/nav/b/110028.gif?rn=1433746415316
+
+//各指数分时图、K线图的flsah地址
+//'cn':"http://i0.sinaimg.cn/cj/hsuan/flash/SinaKLine211.swf",'hk':"http://i3.sinaimg.cn/cj/yw/flash/HKStock141020q.swf","us":"http://i1.sinaimg.cn/cj/yw/flash/us150105b.swf"
+
 //从Settings中获取添加的股票列表
 function loadStocks() {
 	var stocks = Settings.getObject("stockListStocks");
@@ -186,6 +194,11 @@ function getStockInfo(stockCode, f){
 		// 基金名称           ,最新,累计 ,上次 ,涨幅, 时间
 		//"易方达安心回报债券B,1.86,2.365,1.858,0.11,2015-06-05";
 		//   3                , 4  ,  5  , 6   ,  7 ,    8
+		//查询基金最新估值的新代码http://hq.sinajs.cn/?_=new Date().getTime()/&list=fu_110028,f_110028
+		//var hq_str_of110028fu_110028="易方达安心回报债券B,15:04:00,1.8406,1.8600,2.3650,0,-1.043,2015-06-08";
+		//                       基金名称          ,估值时间,最新估值,单位净值,累计净值,0,涨跌幅,净值更新日期 
+		//var hq_str_f_110028="易方达安心回报债券B,1.86,2.365,1.858,2015-06-05,8.01146";
+		//                       基金名称	       ,单位净值,累计净值,前日净值,前日,                  净值增长率=(单位净值-前日净值/前日净值).toFixed(2)
 		xhr.open("GET", "http://hq.sinajs.cn/list=" + stockCode, true);
 		xhr.onreadystatechange = function() {
 			var stockInfo = undefined;
@@ -193,7 +206,6 @@ function getStockInfo(stockCode, f){
 		
 			if (xhr.readyState == 4) {
 				var elements = xhr.responseText.split(/_|="|,|"/);
-				alert(elements);
 				if(elements.length > 5) {
 					try {
 						stockInfo = {

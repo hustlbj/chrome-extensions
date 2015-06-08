@@ -212,31 +212,59 @@ function initializeStockRow() {
         dragHandle: "dragHandle"
     });
 }
+
+
+//自动补全
 function setAutoComplete(input, row) {
 	// http://suggest3.sinajs.cn/suggest/type=&key=flzc&name=gpdm
-	input.autocomplete(stockInfos, {
-			max: 5,
-			minChars: 1,
-			matchSubset: true,
-			matchContains: true,
-			autoFill: false,
-			highlight: false,
-			width: "118px",
-			formatItem: function(item, i, max) { 
-				return item.name + '┊' + item.code; 
-			}, 
-			formatMatch: function(item, i, max) { 
-				return item.pyname + item.name + item.code;
-			}, 
-			formatResult: function(item) { 
-				return item.name; 
-			} 
-		}).result(function(event, item, formatted) { 
-			$(".stockName", row).text(item.name);
-			$(".stockCode", row).text(item.code);
-			updateStockInfo(row);
-		}
-	); 
+	//在stockInfo.js中保存着stockInfos列表
+	//input.autocomplete(stockInfos,
+	
+	input.autocomplete("http://suggest3.sinajs.cn/suggest/", {
+		//max: 5,
+		minChars: 2,
+		matchSubset: true,
+		matchContains: true,
+		autoFill: false,
+		highlight: false,
+		width: "118px",
+		dataType: "json",
+		extraParams: {key: function() {return input.val();}},
+		parse: function(data) {
+			var items = data.split(/=";/);
+			var result = new Array();
+			var index = 0;
+			for(var i = 0; i < items.length; i ++) {
+				var ss = items[i].split(/,/);
+				if(ss.length == 6) {
+					var row = {};
+					row["pyname"] = ss[5];
+					row["name"] = ss[4];
+					row["code"] = ss[3];
+					result[index++] = row;
+				}
+			}
+			return result;
+		},
+		//对每个要显示的选项使用自定义高级标签“股票名称 | 股票代码”
+		formatItem: function(item, i, max) { 
+			return item.name + '┊' + item.code; 
+		}, 
+		//对每一条数据使用此函数格式化需要查询的数据格式
+		formatMatch: function(item, i, max) { 
+			alert(item);
+			return item.pyname + item.name + item.code;
+		}, 
+		formatResult: function(item) { 
+			return item.name; 
+		} 
+	//用户选中某一项后触发
+	}).result(function(event, item, formatted) { 
+		//结果插入到stockName和stockCode单元格中
+		$(".stockName", row).text(item.name);
+		$(".stockCode", row).text(item.code);
+		updateStockInfo(row);
+	}); 
 }
 //进入编辑模式
 function enterFieldEditMode(cell) {
@@ -252,13 +280,14 @@ function enterFieldEditMode(cell) {
 	input.focus();
 	
 	if (input.attr("id") == "stockName")
-		//自动补全
+		//当输入时调用自动补全，第二个参数传入的是所在行
 		setAutoComplete(input, span.parent().parent().parent());
 }
 
 function exitFieldEditMode(cell) {
 	var input = $("input", cell);
 	var span = $("span", cell);
+	//读取输入的值？
 	var newValue = input.val();
 	
 	input.toggle();
@@ -268,6 +297,7 @@ function exitFieldEditMode(cell) {
 		span.text(newValue);
 	} else {
 		var patrn=/^s[hz]{1}[0-9]{6}$/;
+		//判断输入的股票代码
 		if (patrn.exec(newValue)) {
 			var row = span.parent().parent().parent();
 			$(".stockCode", row).text(newValue);
@@ -357,6 +387,7 @@ function updateStockInfo(row) {
 	});
 }
 
+//不断更新股票价格
 function updateStockPriceLoop(){
 	
 	if (isOperation())
@@ -370,7 +401,7 @@ function updateStockPrice() {
 	$("#btnLoadStock").attr("disabled", "disabled"); 
 	setTimeout(function() {
 		var rows = $("#stocksTable .tableRow");
-					
+		//对表格中的每一行
 		for (var i = 0; i < rows.length; i++) {
 			updateStockInfo($(rows[i]));
 		}
@@ -379,6 +410,7 @@ function updateStockPrice() {
 	}, 0);
 }
 
+//新建一行
 function newStockRow(stock, activate) {
 	var table = $("#stocksTable");
 	var row = $("#stocksTable .templateRow").clone();
@@ -386,6 +418,7 @@ function newStockRow(stock, activate) {
 	row.removeClass("templateRow").addClass("tableRow");	
 	table.append(row);
 
+	//进入编辑模式
 	$("td", row).click(function() {
 		enterFieldEditMode(this);
 	});

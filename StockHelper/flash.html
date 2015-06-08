@@ -1,0 +1,78 @@
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<script type="text/javascript" src="http://i0.sinaimg.cn/jslib/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="http://finance.sina.com.cn/js/286/20120307/75.js"></script>
+	<script type="text/javascript" src="http://www.sinaimg.cn/cj/ddp/js/swfobject2.2.js"></script>
+</head>
+<body>
+			<!--flash-->
+			<div id="box-fund-flash">
+			</div>
+			<div id="box-fund-flash-img" >
+			</div>
+			<div id="jijin">
+				
+			</div>
+			<script language="javascript" type="text/javascript">
+			//基金列表
+			//http://money.finance.sina.com.cn/fund/view/vNewFund_FundListings.php
+			//每个基金的信息页面
+			//http://finance.sina.com.cn/fund/quotes/基金代码/bc.shtml
+			//
+			(function($){
+				var _load_img = function(){
+						$("#box-fund-flash").hide();
+						var img = new Image();
+						$(img).bind("load",function(){
+							$("#box-fund-flash-img").append($(img)).show();
+						});
+						img.src = "http://image.sinajs.cn/newchart/v5/fund/nav/b/" + '110028' + ".gif?rn=" + new Date().getTime();
+				};
+			//线上地址来自配置：
+			//swfobject.embedSWF( financeSWFCfg.cn+'?'+Math.random(), "StockFlash", "541", "440", "10.0.0", "http://www.sinaimg.cn/cj/swf/20100612/expressInstall.swf",
+			//测试用地址：
+			swfobject.embedSWF( fundFlashUrl+ (document.all ? "?_=" + (+new Date()) : ''), "box-fund-flash", "775", "400", "10.0.0", "http://www.sinaimg.cn/cj/swf/20100612/expressInstall.swf",
+					{symbol:'110028'},
+					{
+						wmode: "transparent",
+						allowScriptAccess: "always",
+						allowFullScreen: "true"
+					}, 
+					{},
+					function(res){
+						if(!res.success){
+							_load_img();		
+						}
+					}
+				);
+			})(jQuery)
+
+			//抓取网页源码
+			var url = "http://money.finance.sina.com.cn/fund/view/vNewFund_FundListings.php";
+			var xmlHttp = undefined;
+			//用于创建XMLHttpRequest对象
+			function createXmlHttp() {
+    			//根据window.XMLHttpRequest对象是否存在使用不同的创建方式
+    			if (window.XMLHttpRequest) {
+       				xmlHttp = new XMLHttpRequest();                  //FireFox、Opera等浏览器支持的创建方式
+   				} else {
+      				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");//IE浏览器支持的创建方式
+    			}
+			}
+			function writeSource() {
+				if (xmlHttp.readyState == 4) {
+					document.getElementById("jijin").value = xmlHttp.responseText;
+				}
+			}
+			function getSource() {
+				document.getElementById("jijin").value = "正在加载..."
+				createXmlHttp();
+				//设置回调函数
+				xmlHttp.onreadystatechange = writeSource;
+				xmlHttp.open("GET", url, true);
+				xmlHttp.send(null);
+			}
+
+			</script>
+			<!--flash-->
+</body>
