@@ -216,11 +216,15 @@ function initializeStockRow() {
 
 //自动补全
 function setAutoComplete(input, row) {
+	console.log("autocomplete");
 	// http://suggest3.sinajs.cn/suggest/type=&key=flzc&name=gpdm
 	//在stockInfo.js中保存着stockInfos列表
 	//input.autocomplete(stockInfos,
 	
 	input.autocomplete("http://suggest3.sinajs.cn/suggest/", {
+		//delay
+		//scroll
+		//highlight
 		//max: 5,
 		minChars: 2,
 		matchSubset: true,
@@ -228,38 +232,55 @@ function setAutoComplete(input, row) {
 		autoFill: false,
 		highlight: false,
 		width: "118px",
-		dataType: "json",
-		extraParams: {key: function() {return input.val();}},
-		parse: function(data) {
-			var items = data.split(/=";/);
-			var result = new Array();
+		dataType: "text", //1
+		extraParams: {key: function() {return input.val();}}, //y
+		parse: function(data) { //jquery.autocomplete.js  1.1
+			console.log("new parse");
+			//parse函数中，返回的parsed数组格式为[{ data: {pyname: "", name: "", code: ""}, value: {} },  {},  {}, ...]
+			//所以我们必须把我们的数据封装进每个数组元素中的data字段的值中
+			var parsed = new Array();
 			var index = 0;
+			//首先按"分割，把变量名、值分割开来
+			var items = data.split("\"");
+			if(items.length < 3)
+				return parsed;
+			//对值再做;分割
+			items = items[1].split(";");
+			console.log(items);
 			for(var i = 0; i < items.length; i ++) {
-				var ss = items[i].split(/,/);
+				//对值中的每一项做,分割
+				var ss = items[i].split(",");
 				if(ss.length == 6) {
-					var row = {};
-					row["pyname"] = ss[5];
-					row["name"] = ss[4];
-					row["code"] = ss[3];
-					result[index++] = row;
+					var row = new Object();
+					var data = new Object();
+					data.pyname = ss[5];
+					data.name = ss[4];
+					data.code = ss[3];
+					row["data"] = data;
+					parsed[index++] = row;
 				}
 			}
-			return result;
+			return parsed;
 		},
 		//对每个要显示的选项使用自定义高级标签“股票名称 | 股票代码”
-		formatItem: function(item, i, max) { 
+		formatItem: function(item, i, max) { //y
+			console.log(i);
+			console.log(item.name);
 			return item.name + '┊' + item.code; 
 		}, 
 		//对每一条数据使用此函数格式化需要查询的数据格式
-		formatMatch: function(item, i, max) { 
-			alert(item);
+		formatMatch: function(item, i, max) { //y
 			return item.pyname + item.name + item.code;
 		}, 
-		formatResult: function(item) { 
-			return item.name; 
+		formatResult: function(item) {  //y
+			return item.name;
 		} 
+		//search
+		//flushCache
+		//setOptions
+		//unautocomplete
 	//用户选中某一项后触发
-	}).result(function(event, item, formatted) { 
+	}).result(function(event, item, formatted) {  //y
 		//结果插入到stockName和stockCode单元格中
 		$(".stockName", row).text(item.name);
 		$(".stockCode", row).text(item.code);
